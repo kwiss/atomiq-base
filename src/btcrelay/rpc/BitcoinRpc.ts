@@ -27,6 +27,7 @@ export type BtcTx = {
     vsize: number,
     txid: string,
     hex: string,
+    raw: string,
 
     outs: BtcVout[],
     ins: BtcVin[]
