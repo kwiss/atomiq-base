@@ -1,64 +1,49 @@
-import {SwapData} from "./SwapData";
+/// <reference types="node" />
+import { SwapData } from "./SwapData";
 import * as BN from "bn.js";
-import {BtcStoredHeader} from "../btcrelay/types/BtcStoredHeader";
-import {SwapCommitStatus} from "./SwapCommitStatus";
-import {ChainSwapType} from "./ChainSwapType";
-import {RelaySynchronizer} from "../btcrelay/synchronizer/RelaySynchronizer";
-
+import { BtcStoredHeader } from "../btcrelay/types/BtcStoredHeader";
+import { SwapCommitStatus } from "./SwapCommitStatus";
+import { ChainSwapType } from "./ChainSwapType";
+import { RelaySynchronizer } from "../btcrelay/synchronizer/RelaySynchronizer";
 export type IntermediaryReputationType = {
     [key in ChainSwapType]: {
-        successVolume: BN,
-        successCount: BN,
-        failVolume: BN,
-        failCount: BN,
-        coopCloseVolume: BN,
-        coopCloseCount: BN,
-    }
+        successVolume: BN;
+        successCount: BN;
+        failVolume: BN;
+        failCount: BN;
+        coopCloseVolume: BN;
+        coopCloseCount: BN;
+    };
 };
-
 export type SignatureData = {
-    prefix: string,
-    timeout: string,
-    signature: string
+    prefix: string;
+    timeout: string;
+    signature: string;
 };
-
 export type BitcoinTransactionData = {
-    blockhash: string,
-    confirmations: number,
-    txid: string,
-    hex: string,
-    height: number
+    blockhash: string;
+    confirmations: number;
+    txid: string;
+    hex: string;
+    height: number;
 };
-
 export type TransactionConfirmationOptions = {
-    waitForConfirmation?: boolean,
-    abortSignal?: AbortSignal,
-    feeRate?: string
+    waitForConfirmation?: boolean;
+    abortSignal?: AbortSignal;
+    feeRate?: string;
 };
-
 export type AbstractSigner = {
-    getAddress: () => string
+    getAddress: () => string;
 };
-
-export interface SwapContract<
-    T extends SwapData = SwapData,
-    TX = any,
-    PreFetchData = any,
-    PreFetchVerification = any,
-    Signer extends AbstractSigner = AbstractSigner,
-    ChainId extends string = string
-> {
-
+export interface SwapContract<T extends SwapData = SwapData, TX = any, PreFetchData = any, PreFetchVerification = any, Signer extends AbstractSigner = AbstractSigner, ChainId extends string = string> {
     readonly chainId: ChainId;
     readonly claimWithSecretTimeout: number;
     readonly claimWithTxDataTimeout: number;
     readonly refundTimeout: number;
-
     /**
      * Initializes the swap contract
      */
     start(): Promise<void>;
-
     /**
      * Signs & sends transactions for initializing a non-payIn swap (BTC -> SC)
      *
@@ -69,7 +54,6 @@ export interface SwapContract<
      * @param txOptions Transaction options
      */
     init(signer: Signer, swapData: T, signature: SignatureData, skipChecks?: boolean, txOptions?: TransactionConfirmationOptions): Promise<string>;
-
     /**
      * Returns the unsigned transactions required for initializing a non-payIn swap (BTC -> SC)
      *
@@ -79,7 +63,6 @@ export interface SwapContract<
      * @param feeRate Fee rate to use for the transaction
      */
     txsInit(swapData: T, signature: SignatureData, skipChecks?: boolean, feeRate?: string): Promise<TX[]>;
-
     /**
      * Signs & sends transactions required for claiming an HTLC swap
      *
@@ -91,7 +74,6 @@ export interface SwapContract<
      * @param txOptions Transaction options
      */
     claimWithSecret(signer: Signer, swapData: T, secret: string, checkExpiry?: boolean, initAta?: boolean, txOptions?: TransactionConfirmationOptions): Promise<string>;
-
     /**
      * Returns the unsigned transactions required for claiming an HTLC swap
      *
@@ -104,7 +86,6 @@ export interface SwapContract<
      * @param skipAtaCheck Whether to skip checking if token account exists
      */
     txsClaimWithSecret(signer: string | Signer, swapData: T, secret: string, checkExpiry?: boolean, initAta?: boolean, feeRate?: string, skipAtaCheck?: boolean): Promise<TX[]>;
-
     /**
      * Signs & sends transactions required for claiming an on-chain PTLC (proof-time locked contract) swap
      *
@@ -118,18 +99,7 @@ export interface SwapContract<
      * @param initAta Whether to initialize a token account if it doesn't exist (applies to e.g. Solana, with token specific ATAs)
      * @param txOptions Transaction options
      */
-    claimWithTxData(
-        signer: Signer,
-        swapData: T,
-        tx: BitcoinTransactionData,
-        requiredConfirmations: number,
-        vout: number,
-        storedHeader?: BtcStoredHeader<any>,
-        synchronizer?: RelaySynchronizer<any, TX, any>,
-        initAta?: boolean,
-        txOptions?: TransactionConfirmationOptions
-    ): Promise<string>;
-
+    claimWithTxData(signer: Signer, swapData: T, tx: BitcoinTransactionData, requiredConfirmations: number, vout: number, storedHeader?: BtcStoredHeader<any>, synchronizer?: RelaySynchronizer<any, TX, any>, initAta?: boolean, txOptions?: TransactionConfirmationOptions): Promise<string>;
     /**
      * Returns the unsigned transactions required for claiming an on-chain PTLC (proof-time locked contract) swap
      *
@@ -143,18 +113,7 @@ export interface SwapContract<
      * @param initAta Whether to initialize a token account if it doesn't exist (applies to e.g. Solana, with token specific ATAs)
      * @param feeRate Fee rate to use for the transactions
      */
-    txsClaimWithTxData(
-        signer: string | Signer,
-        swapData: T,
-        tx: BitcoinTransactionData,
-        requiredConfirmations: number,
-        vout: number,
-        storedHeader?: BtcStoredHeader<any>,
-        synchronizer?: RelaySynchronizer<any, TX, any>,
-        initAta?: boolean,
-        feeRate?: string
-    ): Promise<TX[]>;
-
+    txsClaimWithTxData(signer: string | Signer, swapData: T, tx: BitcoinTransactionData, requiredConfirmations: number, vout: number, storedHeader?: BtcStoredHeader<any>, synchronizer?: RelaySynchronizer<any, TX, any>, initAta?: boolean, feeRate?: string): Promise<TX[]>;
     /**
      * Signs & sends transactions for refunding a timed out swap
      *
@@ -165,7 +124,6 @@ export interface SwapContract<
      * @param txOptions Transaction options
      */
     refund(signer: Signer, swapData: T, check?: boolean, initAta?: boolean, txOptions?: TransactionConfirmationOptions): Promise<string>;
-
     /**
      * Returns the transactions for refunding a timed out swap
      *
@@ -175,7 +133,6 @@ export interface SwapContract<
      * @param feeRate Fee rate to use for the transactions
      */
     txsRefund(swapData: T, check?: boolean, initAta?: boolean, feeRate?: string): Promise<TX[]>;
-
     /**
      * Signs & sends transactions for refunding a swap with a valid refund signature from the claimer
      *
@@ -187,7 +144,6 @@ export interface SwapContract<
      * @param txOptions Transaction options
      */
     refundWithAuthorization(signer: Signer, swapData: T, signature: SignatureData, check?: boolean, initAta?: boolean, txOptions?: TransactionConfirmationOptions): Promise<string>;
-
     /**
      * Returns the transactions for refunding a swap with a valid refund signature from the claimer
      *
@@ -198,7 +154,6 @@ export interface SwapContract<
      * @param feeRate Fee rate to use for the transactions
      */
     txsRefundWithAuthorization(swapData: T, signature: SignatureData, check?: boolean, initAta?: boolean, feeRate?: string): Promise<TX[]>;
-
     /**
      * Signs & sends transactions for initializing and instantly (upon init confirmation) claiming the HTLC, used for BTC-LN -> SC swaps
      *
@@ -210,7 +165,6 @@ export interface SwapContract<
      * @param txOptions Transaction options
      */
     initAndClaimWithSecret(signer: Signer, swapData: T, signature: SignatureData, secret: string, skipChecks?: boolean, txOptions?: TransactionConfirmationOptions): Promise<string[]>;
-
     /**
      * Checks whether a swap is already expired, swap expires a bit sooner for the claimer & a bit later for offerer, this
      *  is used to account for possible on-chain time skew
@@ -219,7 +173,6 @@ export interface SwapContract<
      * @param swapData Swap to check
      */
     isExpired(signer: string, swapData: T): Promise<boolean>;
-
     /**
      * Checks whether a swap is claimable for the signer, i.e. it is not expired yet and is committed on-chain
      *
@@ -227,14 +180,12 @@ export interface SwapContract<
      * @param swapData
      */
     isClaimable(signer: string, swapData: T): Promise<boolean>;
-
     /**
      * Checks whether a given swap is committed on chain (initialized)
      *
      * @param swapData
      */
     isCommited(swapData: T): Promise<boolean>;
-
     /**
      * Returns the full status of the swap, expiry is handler by the isExpired function so also requires a signer
      *
@@ -242,7 +193,6 @@ export interface SwapContract<
      * @param swapData
      */
     getCommitStatus(signer: string, swapData: T): Promise<SwapCommitStatus>;
-
     /**
      * Checks whether a given swap is refundable by us, i.e. it is already expired, we are offerer & swap is committed on-chain
      *
@@ -250,18 +200,15 @@ export interface SwapContract<
      * @param swapData
      */
     isRequestRefundable(signer: string, swapData: T): Promise<boolean>;
-
     /**
      * Pre-fetches data required for creating init signature
      */
     preFetchBlockDataForSignatures?(): Promise<PreFetchData>;
-
     /**
      * Pre-fetches data required for init signature verification
      * @param data
      */
     preFetchForInitSignatureVerification?(data: PreFetchData): Promise<PreFetchVerification>;
-
     /**
      * Generates the initialization signature
      *
@@ -272,7 +219,6 @@ export interface SwapContract<
      * @param feeRate Optional fee rate to use for the authorization
      */
     getInitSignature(signer: Signer, swapData: T, authorizationTimeout: number, preFetchedBlockData?: PreFetchData, feeRate?: string): Promise<SignatureData>;
-
     /**
      * Checks whether a signature is a valid initialization signature for a given swap
      *
@@ -283,7 +229,6 @@ export interface SwapContract<
      * @returns {Buffer | null} The message being signed if valid or null if invalid signature
      */
     isValidInitAuthorization(swapData: T, signature: SignatureData, feeRate?: string, preFetchedVerificationData?: PreFetchVerification): Promise<Buffer | null>;
-
     /**
      * Returns the expiry timestamp (UNIX milliseconds) of the authorization
      *
@@ -292,7 +237,6 @@ export interface SwapContract<
      * @param preFetchedVerificationData Optional pre-fetched data required for signature validation
      */
     getInitAuthorizationExpiry(swapData: T, signature: SignatureData, preFetchedVerificationData?: PreFetchVerification): Promise<number>;
-
     /**
      * Checks whether a given init signature is already expired
      *
@@ -300,7 +244,6 @@ export interface SwapContract<
      * @param signature Signature data
      */
     isInitAuthorizationExpired(swapData: T, signature: SignatureData): Promise<boolean>;
-
     /**
      * Generates the refund signature for a given swap allowing the offerer to refund before expiration
      *
@@ -309,7 +252,6 @@ export interface SwapContract<
      * @param authorizationTimeout Timeout of the provided refund authorization
      */
     getRefundSignature(signer: Signer, swapData: T, authorizationTimeout: number): Promise<SignatureData>;
-
     /**
      * Checks whether a given refund signature is valid
      *
@@ -317,7 +259,6 @@ export interface SwapContract<
      * @param signature Signature received from the claimer
      */
     isValidRefundAuthorization(swapData: T, signature: SignatureData): Promise<Buffer | null>;
-
     /**
      * Signs the given data with the provided signer
      *
@@ -325,7 +266,6 @@ export interface SwapContract<
      * @param data Data to sign
      */
     getDataSignature(signer: Signer, data: Buffer): Promise<string>;
-
     /**
      * Checks whether a provided data is signature is valid
      *
@@ -334,7 +274,6 @@ export interface SwapContract<
      * @param publicKey Public key of the signer
      */
     isValidDataSignature(data: Buffer, signature: string, publicKey: string): Promise<boolean>;
-
     /**
      * Returns the token balance of a given signer's address
      *
@@ -343,7 +282,6 @@ export interface SwapContract<
      * @param inContract Whether we are checking the liquidity deposited into the LP vault or just on-chain balance
      */
     getBalance(signer: string, token: string, inContract: boolean): Promise<BN>;
-
     /**
      * Create a swap data for this given chain
      *
@@ -361,45 +299,27 @@ export interface SwapContract<
      * @param securityDeposit Security deposit for the swap paid by the claimer (options premium)
      * @param claimerBounty Bounty for the claimer of the swap (used for watchtowers)
      */
-    createSwapData(
-        type: ChainSwapType,
-        offerer: string,
-        claimer: string,
-        token: string,
-        amount: BN,
-        paymentHash: string,
-        sequence: BN,
-        expiry: BN,
-        payIn: boolean,
-        payOut: boolean,
-        securityDeposit: BN,
-        claimerBounty: BN
-    ): Promise<T>;
-
+    createSwapData(type: ChainSwapType, offerer: string, claimer: string, token: string, amount: BN, paymentHash: string, sequence: BN, expiry: BN, payIn: boolean, payOut: boolean, securityDeposit: BN, claimerBounty: BN): Promise<T>;
     /**
      * Checks if a given string is a valid wallet address
      *
      * @param address
      */
     isValidAddress(address: string): boolean;
-
     /**
      * Checks if a given string is a valid token identifier
      *
      * @param tokenIdentifier
      */
     isValidToken(tokenIdentifier: string): boolean;
-
     /**
      * Returns a random valid wallet address
      */
     randomAddress(): string;
-
     /**
      * Returns randomly generated signer
      */
     randomSigner(): Signer;
-
     /**
      * Returns intermediary's reputation for a given token swaps
      *
@@ -407,7 +327,6 @@ export interface SwapContract<
      * @param token
      */
     getIntermediaryReputation(address: string, token: string): Promise<IntermediaryReputationType>;
-
     /**
      * Returns the fee in native token base units to commit (initiate) the swap
      *
@@ -415,7 +334,6 @@ export interface SwapContract<
      * @param feeRate Optional fee rate (fetched on-demand if not provided)
      */
     getCommitFee(swapData: T, feeRate?: string): Promise<BN>;
-
     /**
      * Returns raw fee (not including any account deposits we might need) for initiating the swap
      *
@@ -423,7 +341,6 @@ export interface SwapContract<
      * @param feeRate Optional fee rate (fetched on-demand if not provided)
      */
     getRawCommitFee?(swapData: T, feeRate?: string): Promise<BN>;
-
     /**
      * Returns the fee in native token base units to claim the swap
      *
@@ -432,7 +349,6 @@ export interface SwapContract<
      * @param feeRate Optional fee rate (fetched on-demand if not provided)
      */
     getClaimFee(signer: string, swapData: T, feeRate?: string): Promise<BN>;
-
     /**
      * Returns raw fee (not including any refunds we might get that would make the getClaimFee negative) for claiming the swap
      *
@@ -441,7 +357,6 @@ export interface SwapContract<
      * @param feeRate Optional fee rate (fetched on-demand if not provided)
      */
     getRawClaimFee?(signer: string, swapData: T, feeRate?: string): Promise<BN>;
-
     /**
      * Returns the fee in native token base units to refund the swap
      *
@@ -449,7 +364,6 @@ export interface SwapContract<
      * @param feeRate Optional fee rate (fetched on-demand if not provided)
      */
     getRefundFee(swapData: T, feeRate?: string): Promise<BN>;
-
     /**
      * Returns raw fee (not including any refunds we might get that would make the getRefundFee negative) for claiming the swap
      *
@@ -457,7 +371,6 @@ export interface SwapContract<
      * @param feeRate Optional fee rate (fetched on-demand if not provided)
      */
     getRawRefundFee?(swapData: T, feeRate?: string): Promise<BN>;
-
     /**
      * Returns the fee rate for committing (initializing) a payIn swap
      *
@@ -467,7 +380,6 @@ export interface SwapContract<
      * @param paymentHash Optional payment hash
      */
     getInitPayInFeeRate(offerer: string, claimer: string, token: string, paymentHash?: string): Promise<string>;
-
     /**
      * Returns the fee rate for committing (initializing) a non-payIn swap
      *
@@ -477,14 +389,12 @@ export interface SwapContract<
      * @param paymentHash Optional payment hash
      */
     getInitFeeRate(offerer: string, claimer: string, token: string, paymentHash?: string): Promise<string>;
-
     /**
      * Returns the fee rate for refunding a swap
      *
      * @param swapData Swap to refund
      */
     getRefundFeeRate(swapData: T): Promise<string>;
-
     /**
      * Returns the fee rate for claiming a swap as a specific signer
      *
@@ -492,7 +402,6 @@ export interface SwapContract<
      * @param swapData Swap to claim
      */
     getClaimFeeRate(signer: string, swapData: T): Promise<string>;
-
     /**
      * Compute the claim hash for a given transaction output, either nonced or just output locked
      *
@@ -502,7 +411,6 @@ export interface SwapContract<
      * @param nonce Nonce to be used as replay protection
      */
     getHashForOnchain(outputScript: Buffer, amount: BN, confirmations: number, nonce: BN): Buffer;
-
     /**
      * Compute the claim hash for a given transaction id
      *
@@ -510,19 +418,16 @@ export interface SwapContract<
      * @param confirmations Required number of confirmations for the swap to be claimable
      */
     getHashForTxId(txId: string, confirmations: number): Buffer;
-
     /**
      * Compute the claim hash for an HTLC swap with a given swap hash
      *
      * @param swapHash
      */
     getHashForHtlc(swapHash: Buffer): Buffer;
-
     /**
      * Returns the token address of the native currency of the chain
      */
     getNativeCurrencyAddress(): string;
-
     /**
      * Withdraws funds from the trading LP vault
      *
@@ -532,7 +437,6 @@ export interface SwapContract<
      * @param txOptions Transaction options
      */
     withdraw(signer: Signer, token: string, amount: BN, txOptions?: TransactionConfirmationOptions): Promise<string>;
-
     /**
      * Returns transactions required for signer to withdraw funds from the trading LP vault
      *
@@ -542,7 +446,6 @@ export interface SwapContract<
      * @param feeRate Optional fee rate to use for the transaction (fetched on-demand if not provided)
      */
     txsWithdraw(signer: string, token: string, amount: BN, feeRate?: string): Promise<TX[]>;
-
     /**
      * Deposits funds to the trading LP vault
      *
@@ -552,7 +455,6 @@ export interface SwapContract<
      * @param txOptions Transaction options
      */
     deposit(signer: Signer, token: string, amount: BN, txOptions?: TransactionConfirmationOptions): Promise<string>;
-
     /**
      * Returns transactions required for signer to deposit funds to the trading LP vault
      *
@@ -562,7 +464,6 @@ export interface SwapContract<
      * @param feeRate Optional fee rate to use for the transaction (fetched on-demand if not provided)
      */
     txsDeposit(signer: string, token: string, amount: BN, feeRate?: string): Promise<TX[]>;
-
     /**
      * Transfers the specific token to a given recipient
      *
@@ -573,7 +474,6 @@ export interface SwapContract<
      * @param txOptions Transaction options
      */
     transfer(signer: Signer, token: string, amount: BN, dstAddress: string, txOptions?: TransactionConfirmationOptions): Promise<string>;
-
     /**
      * Returns transactions for transferring a specific token to a given recipient
      *
@@ -584,35 +484,30 @@ export interface SwapContract<
      * @param feeRate Optional fee rate to use for the transaction (fetched on-demand if not provided)
      */
     txsTransfer(signer: string, token: string, amount: BN, dstAddress: string, feeRate?: string): Promise<TX[]>;
-
     /**
      * Serializes a given transaction to a string
      *
      * @param tx Transaction to serialize
      */
     serializeTx(tx: TX): Promise<string>;
-
     /**
      * Deserializes a transaction from string
      *
      * @param txData Serialized transaction data string
      */
     deserializeTx(txData: string): Promise<TX>;
-
     /**
      * Returns the status of the given serialized transaction
      *
      * @param tx Serialized transaction
      */
     getTxStatus(tx: string): Promise<"not_found" | "pending" | "success" | "reverted">;
-
     /**
      * Returns the status of the given transactionId (use getTxStatus whenever possible, it's more reliable)
      *
      * @param txId Transaction ID
      */
     getTxIdStatus(txId: string): Promise<"not_found" | "pending" | "success" | "reverted">;
-
     /**
      * Signs, sends a batch of transaction and optionally waits for their confirmation
      *
@@ -625,35 +520,37 @@ export interface SwapContract<
      * @param onBeforePublish Callback called before a tx is broadcast
      */
     sendAndConfirm(signer: Signer, txs: TX[], waitForConfirmation?: boolean, abortSignal?: AbortSignal, parallel?: boolean, onBeforePublish?: (txId: string, rawTx: string) => Promise<void>): Promise<string[]>;
-
     /**
      * Callback called when transaction is being replaced (used for EVM, when fee is bumped on an unconfirmed tx)
      *
      * @param callback
      */
     onBeforeTxReplace(callback: (oldTx: string, oldTxId: string, newTx: string, newTxId: string) => Promise<void>): void;
-
     /**
      * Remove tx replace callback
      *
      * @param callback
      */
     offBeforeTxReplace(callback: (oldTx: string, oldTxId: string, newTx: string, newTxId: string) => Promise<void>): boolean;
-
     /**
      * Returns the amount of deposits (in native token) that we can claim back (this is useful for SVM chains with the PDAs
      *  requiring you to put some deposit in order to store data)
      *
      * @param signer Signer to check the claimable deposits for
      */
-    getClaimableDeposits?(signer: string): Promise<{count: number, totalValue: BN}>;
-
+    getClaimableDeposits?(signer: string): Promise<{
+        count: number;
+        totalValue: BN;
+    }>;
     /**
      * Claims the funds from claimable deposits
      *
      * @param signer Owner of the deposits, transaction signer
      * @param txOptions Transaction options
      */
-    claimDeposits?(signer: Signer): Promise<{txIds: string[], count: number, totalValue: BN}>;
-
+    claimDeposits?(signer: Signer): Promise<{
+        txIds: string[];
+        count: number;
+        totalValue: BN;
+    }>;
 }
