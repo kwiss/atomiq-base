@@ -493,6 +493,8 @@ export interface SwapContract<
      */
     getClaimFeeRate(signer: string, swapData: T): Promise<string>;
 
+    getExtraData(outputScript: Buffer, amount: BN, confirmations: number, nonce?: BN): Buffer;
+
     /**
      * Compute the claim hash for a given transaction output, either nonced or just output locked
      *
@@ -501,7 +503,7 @@ export interface SwapContract<
      * @param confirmations Required number of confirmations for the swap to be claimable
      * @param nonce Nonce to be used as replay protection
      */
-    getHashForOnchain(outputScript: Buffer, amount: BN, confirmations: number, nonce: BN): Buffer;
+    getHashForOnchain(outputScript: Buffer, amount: BN, confirmations: number, nonce?: BN): Buffer;
 
     /**
      * Compute the claim hash for a given transaction id
