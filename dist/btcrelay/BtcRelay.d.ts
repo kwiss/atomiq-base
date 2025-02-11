@@ -9,6 +9,7 @@ export interface BtcRelay<V extends BtcStoredHeader<any>, T, B extends BtcBlock,
     maxShortForkHeadersPerTx?: number;
     getTipData(): Promise<{
         blockheight: number;
+        blockhash: string;
         commitHash: string;
         chainWork: Buffer;
     }>;

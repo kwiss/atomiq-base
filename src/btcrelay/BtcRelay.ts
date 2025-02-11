@@ -16,6 +16,7 @@ export interface BtcRelay<
 
     getTipData(): Promise<{
         blockheight: number,
+        blockhash: string,
         commitHash: string,
         chainWork: Buffer
     }>;
