@@ -165,7 +165,7 @@ export interface SwapContract<T extends SwapData = SwapData, TX = any, PreFetchD
      * @param skipChecks Whether to skip verification of the signature & checking if the swap is already committed
      * @param txOptions Transaction options
      */
-    initAndClaimWithSecret(signer: Signer, swapData: T, signature: SignatureData, secret: string, skipChecks?: boolean, txOptions?: TransactionConfirmationOptions): Promise<string[]>;
+    initAndClaimWithSecret?(signer: Signer, swapData: T, signature: SignatureData, secret: string, skipChecks?: boolean, txOptions?: TransactionConfirmationOptions): Promise<string[]>;
     /**
      * Checks whether a swap is already expired, swap expires a bit sooner for the claimer & a bit later for offerer, this
      *  is used to account for possible on-chain time skew
