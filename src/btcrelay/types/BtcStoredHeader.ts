@@ -1,4 +1,5 @@
 import {BtcHeader} from "./BtcHeader";
+import {Buffer} from "buffer";
 
 export interface BtcStoredHeader<T extends BtcHeader> {
 

@@ -1,6 +1,8 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.StatePredictorUtils = void 0;
+const BN = require("bn.js");
+const buffer_1 = require("buffer");
 class StatePredictorUtils {
     static gtBuffer(a, b) {
         for (let i = 0; i < a.length; i++) {
@@ -31,7 +33,7 @@ class StatePredictorUtils {
         }
     }
     static nbitsToTarget(nbits) {
-        const target = Buffer.alloc(32, 0);
+        const target = buffer_1.Buffer.alloc(32, 0);
         const nSize = (nbits >> 24) & 0xFF;
         const nWord = [
             ((nbits >> 16) & 0x7F),
@@ -60,13 +62,18 @@ class StatePredictorUtils {
         for (let i = 0; i < 3; i++) {
             num |= target[start + i] << ((2 - i) * 8);
         }
-        const arr = Buffer.from("00000000FFFF0000000000000000000000000000000000000000000000000000", "hex");
+        const arr = buffer_1.Buffer.from("00000000FFFF0000000000000000000000000000000000000000000000000000", "hex");
         StatePredictorUtils.divInPlace(arr, num);
-        const result = Buffer.alloc(32, 0);
+        const result = buffer_1.Buffer.alloc(32, 0);
         for (let i = 0; i < 32 - shift; i++) {
             result[i + shift] = arr[i];
         }
         return result;
+    }
+    static getChainwork(nbits) {
+        const target = StatePredictorUtils.nbitsToTarget(nbits);
+        const targetBN = new BN(target);
+        return targetBN.notn(256).div(targetBN.addn(1)).addn(1).toArrayLike(buffer_1.Buffer, "be", 32);
     }
 }
 exports.StatePredictorUtils = StatePredictorUtils;

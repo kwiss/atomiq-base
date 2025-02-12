@@ -4,6 +4,7 @@ import {BtcStoredHeader} from "../btcrelay/types/BtcStoredHeader";
 import {SwapCommitStatus} from "./SwapCommitStatus";
 import {ChainSwapType} from "./ChainSwapType";
 import {RelaySynchronizer} from "../btcrelay/synchronizer/RelaySynchronizer";
+import {Buffer} from "buffer";
 
 export type IntermediaryReputationType = {
     [key in ChainSwapType]: {

@@ -1,5 +1,6 @@
 /// <reference types="node" />
 import { BtcBlock } from "../types/BtcBlock";
+import { Buffer } from "buffer";
 export type BtcVout = {
     value: number;
     n: number;
