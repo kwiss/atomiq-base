@@ -31,5 +31,6 @@ export declare abstract class SwapData implements StorageObject {
     abstract getSecurityDeposit(): BN;
     abstract getClaimerBounty(): BN;
     abstract getTotalDeposit(): BN;
+    abstract getDepositToken(): string;
     abstract equals(other: SwapData): boolean;
 }
