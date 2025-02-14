@@ -361,6 +361,7 @@ export interface SwapContract<
      *  getting his funds into his LP vault)
      * @param securityDeposit Security deposit for the swap paid by the claimer (options premium)
      * @param claimerBounty Bounty for the claimer of the swap (used for watchtowers)
+     * @param depositToken Token to be used for security deposit and claimer bounty
      */
     createSwapData(
         type: ChainSwapType,
@@ -374,7 +375,8 @@ export interface SwapContract<
         payIn: boolean,
         payOut: boolean,
         securityDeposit: BN,
-        claimerBounty: BN
+        claimerBounty: BN,
+        depositToken?: string
     ): Promise<T>;
 
     /**
