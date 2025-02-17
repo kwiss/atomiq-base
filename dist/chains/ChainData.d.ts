@@ -7,12 +7,11 @@ export type BaseTokenType = {
         displayDecimals?: number;
     };
 };
-export type ChainData<T extends ChainType, Tokens extends BaseTokenType> = {
+export type ChainData<T extends ChainType> = {
     chainId: ChainType["ChainId"];
     btcRelay: BtcRelay<any, T["TX"], any, T["Signer"]>;
     swapContract: T["Contract"];
     chainEvents: T["Events"];
     swapDataConstructor: new (data: any) => T["Data"];
-    tokens: Tokens;
     storagePrefix?: string;
 };
