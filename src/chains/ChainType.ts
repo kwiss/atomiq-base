@@ -1,7 +1,7 @@
-import {SwapData} from "./swaps/SwapData";
-import {ChainEvents} from "./events/ChainEvents";
-import {AbstractSigner, SwapContract} from "./swaps/SwapContract";
-import {BtcRelay} from "./btcrelay/BtcRelay";
+import {SwapData} from "../swaps/SwapData";
+import {ChainEvents} from "../events/ChainEvents";
+import {AbstractSigner, SwapContract} from "../swaps/SwapContract";
+import {BtcRelay} from "../btcrelay/BtcRelay";
 
 export type ChainType<
     ChainId extends string = string,

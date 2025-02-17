@@ -36,7 +36,8 @@ __exportStar(require("./swaps/SwapCommitStatus"), exports);
 __exportStar(require("./errors/SignatureVerificationError"), exports);
 __exportStar(require("./errors/CannotInitializeATAError"), exports);
 __exportStar(require("./errors/SwapDataVerificationError"), exports);
-__exportStar(require("./ChainType"), exports);
+__exportStar(require("./chains/ChainType"), exports);
+__exportStar(require("./chains/ChainData"), exports);
 // export {
 //     BitcoinRpc,
 //     RelaySynchronizer,

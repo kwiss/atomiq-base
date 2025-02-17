@@ -22,7 +22,8 @@ export * from "./errors/SignatureVerificationError";
 export * from "./errors/CannotInitializeATAError"
 export * from "./errors/SwapDataVerificationError";
 
-export * from "./ChainType";
+export * from "./chains/ChainType";
+export * from "./chains/ChainData";
 
 // export {
 //     BitcoinRpc,
