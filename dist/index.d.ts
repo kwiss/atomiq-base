@@ -22,3 +22,4 @@ export * from "./errors/CannotInitializeATAError";
 export * from "./errors/SwapDataVerificationError";
 export * from "./chains/ChainType";
 export * from "./chains/ChainData";
+export * from "./btc/BitcoinNetwork";

@@ -25,28 +25,4 @@ export * from "./errors/SwapDataVerificationError";
 export * from "./chains/ChainType";
 export * from "./chains/ChainData";
 
-// export {
-//     BitcoinRpc,
-//     RelaySynchronizer,
-//     BtcBlock,
-//     BtcHeader,
-//     BtcStoredHeader,
-//     StatePredictorUtils,
-//     BtcRelay,
-//
-//     ClaimEvent,
-//     InitializeEvent,
-//     RefundEvent,
-//     SwapEvent,
-//     ChainEvents,
-//
-//     Lockable,
-//
-//     StorageObject,
-//
-//     ISwapNonce,
-//     SwapContract,
-//     SwapData,
-//     SwapType,
-//     TokenAddress,
-// }
+export * from "./btc/BitcoinNetwork";

@@ -38,28 +38,4 @@ __exportStar(require("./errors/CannotInitializeATAError"), exports);
 __exportStar(require("./errors/SwapDataVerificationError"), exports);
 __exportStar(require("./chains/ChainType"), exports);
 __exportStar(require("./chains/ChainData"), exports);
-// export {
-//     BitcoinRpc,
-//     RelaySynchronizer,
-//     BtcBlock,
-//     BtcHeader,
-//     BtcStoredHeader,
-//     StatePredictorUtils,
-//     BtcRelay,
-//
-//     ClaimEvent,
-//     InitializeEvent,
-//     RefundEvent,
-//     SwapEvent,
-//     ChainEvents,
-//
-//     Lockable,
-//
-//     StorageObject,
-//
-//     ISwapNonce,
-//     SwapContract,
-//     SwapData,
-//     SwapType,
-//     TokenAddress,
-// }
+__exportStar(require("./btc/BitcoinNetwork"), exports);
