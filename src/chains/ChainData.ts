@@ -10,6 +10,7 @@ export type BaseTokenType = {
 };
 
 export type ChainData<T extends ChainType, Tokens extends BaseTokenType> = {
+    chainId: ChainType["ChainId"],
     btcRelay: BtcRelay<any, T["TX"], any, T["Signer"]>,
     swapContract: T["Contract"],
     chainEvents: T["Events"],
