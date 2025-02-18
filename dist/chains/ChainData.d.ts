@@ -1,7 +1,7 @@
 import { ChainType } from "./ChainType";
 import { BtcRelay } from "../btcrelay/BtcRelay";
-export type BaseTokenType = {
-    [ticker: string]: {
+export type BaseTokenType<T extends string = string> = {
+    [ticker in T]: {
         address: string;
         decimals: number;
         displayDecimals?: number;

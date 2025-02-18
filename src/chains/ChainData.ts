@@ -3,8 +3,8 @@ import {BtcRelay} from "../btcrelay/BtcRelay";
 import {BitcoinRpc} from "../btcrelay/rpc/BitcoinRpc";
 import {BitcoinNetwork} from "../btc/BitcoinNetwork";
 
-export type BaseTokenType = {
-    [ticker: string]: {
+export type BaseTokenType<T extends string = string> = {
+    [ticker in T]: {
         address: string,
         decimals: number,
         displayDecimals?: number
