@@ -1,7 +1,6 @@
 /// <reference types="node" />
 import { BtcStoredHeader } from "./types/BtcStoredHeader";
 import { BtcBlock } from "./types/BtcBlock";
-import * as BN from "bn.js";
 import { AbstractSigner } from "../swaps/SwapContract";
 import { Buffer } from "buffer";
 export interface BtcRelay<V extends BtcStoredHeader<any>, T, B extends BtcBlock, Signer extends AbstractSigner = AbstractSigner> {
@@ -56,7 +55,7 @@ export interface BtcRelay<V extends BtcStoredHeader<any>, T, B extends BtcBlock,
     }>;
     getMainFeeRate?(signer: string): Promise<string>;
     getForkFeeRate?(signer: string, forkId: number): Promise<string>;
-    estimateSynchronizeFee(requiredBlockheight: number, feeRate?: string): Promise<BN>;
-    getFeePerBlock(feeRate?: any): Promise<BN>;
+    estimateSynchronizeFee(requiredBlockheight: number, feeRate?: string): Promise<bigint>;
+    getFeePerBlock(feeRate?: any): Promise<bigint>;
     sweepForkData?(signer: Signer, lastSweepTimestamp?: number): Promise<number | null>;
 }

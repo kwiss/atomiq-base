@@ -1,8 +1,8 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.StatePredictorUtils = void 0;
-const BN = require("bn.js");
 const buffer_1 = require("buffer");
+const BigIntBufferUtils_1 = require("../../utils/BigIntBufferUtils");
 class StatePredictorUtils {
     static gtBuffer(a, b) {
         for (let i = 0; i < a.length; i++) {
@@ -72,8 +72,8 @@ class StatePredictorUtils {
     }
     static getChainwork(nbits) {
         const target = StatePredictorUtils.nbitsToTarget(nbits);
-        const targetBN = new BN(target);
-        return targetBN.notn(256).div(targetBN.addn(1)).addn(1).toArrayLike(buffer_1.Buffer, "be", 32);
+        const targetBN = BigIntBufferUtils_1.BigIntBufferUtils.fromBuffer(target);
+        return BigIntBufferUtils_1.BigIntBufferUtils.toBuffer(((~targetBN & 0xffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffn) / (targetBN + 1n)) + 1n);
     }
 }
 exports.StatePredictorUtils = StatePredictorUtils;

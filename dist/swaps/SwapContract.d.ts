@@ -1,6 +1,5 @@
 /// <reference types="node" />
 import { SwapData } from "./SwapData";
-import * as BN from "bn.js";
 import { BtcStoredHeader } from "../btcrelay/types/BtcStoredHeader";
 import { SwapCommitStatus } from "./SwapCommitStatus";
 import { ChainSwapType } from "./ChainSwapType";
@@ -8,12 +7,12 @@ import { RelaySynchronizer } from "../btcrelay/synchronizer/RelaySynchronizer";
 import { Buffer } from "buffer";
 export type IntermediaryReputationType = {
     [key in ChainSwapType]: {
-        successVolume: BN;
-        successCount: BN;
-        failVolume: BN;
-        failCount: BN;
-        coopCloseVolume: BN;
-        coopCloseCount: BN;
+        successVolume: bigint;
+        successCount: bigint;
+        failVolume: bigint;
+        failCount: bigint;
+        coopCloseVolume: bigint;
+        coopCloseCount: bigint;
     };
 };
 export type SignatureData = {
@@ -282,7 +281,7 @@ export interface SwapContract<T extends SwapData = SwapData, TX = any, PreFetchD
      * @param token Token
      * @param inContract Whether we are checking the liquidity deposited into the LP vault or just on-chain balance
      */
-    getBalance(signer: string, token: string, inContract: boolean): Promise<BN>;
+    getBalance(signer: string, token: string, inContract: boolean): Promise<bigint>;
     /**
      * Create a swap data for this given chain
      *
@@ -301,7 +300,7 @@ export interface SwapContract<T extends SwapData = SwapData, TX = any, PreFetchD
      * @param claimerBounty Bounty for the claimer of the swap (used for watchtowers)
      * @param depositToken Token to be used for security deposit and claimer bounty
      */
-    createSwapData(type: ChainSwapType, offerer: string, claimer: string, token: string, amount: BN, paymentHash: string, sequence: BN, expiry: BN, payIn: boolean, payOut: boolean, securityDeposit: BN, claimerBounty: BN, depositToken?: string): Promise<T>;
+    createSwapData(type: ChainSwapType, offerer: string, claimer: string, token: string, amount: bigint, paymentHash: string, sequence: bigint, expiry: bigint, payIn: boolean, payOut: boolean, securityDeposit: bigint, claimerBounty: bigint, depositToken?: string): Promise<T>;
     /**
      * Checks if a given string is a valid wallet address
      *
@@ -335,14 +334,14 @@ export interface SwapContract<T extends SwapData = SwapData, TX = any, PreFetchD
      * @param swapData Swap to initiate
      * @param feeRate Optional fee rate (fetched on-demand if not provided)
      */
-    getCommitFee(swapData: T, feeRate?: string): Promise<BN>;
+    getCommitFee(swapData: T, feeRate?: string): Promise<bigint>;
     /**
      * Returns raw fee (not including any account deposits we might need) for initiating the swap
      *
      * @param swapData Swap to initiate
      * @param feeRate Optional fee rate (fetched on-demand if not provided)
      */
-    getRawCommitFee?(swapData: T, feeRate?: string): Promise<BN>;
+    getRawCommitFee?(swapData: T, feeRate?: string): Promise<bigint>;
     /**
      * Returns the fee in native token base units to claim the swap
      *
@@ -350,7 +349,7 @@ export interface SwapContract<T extends SwapData = SwapData, TX = any, PreFetchD
      * @param swapData Swap to claim
      * @param feeRate Optional fee rate (fetched on-demand if not provided)
      */
-    getClaimFee(signer: string, swapData: T, feeRate?: string): Promise<BN>;
+    getClaimFee(signer: string, swapData: T, feeRate?: string): Promise<bigint>;
     /**
      * Returns raw fee (not including any refunds we might get that would make the getClaimFee negative) for claiming the swap
      *
@@ -358,21 +357,21 @@ export interface SwapContract<T extends SwapData = SwapData, TX = any, PreFetchD
      * @param swapData Swap to claim
      * @param feeRate Optional fee rate (fetched on-demand if not provided)
      */
-    getRawClaimFee?(signer: string, swapData: T, feeRate?: string): Promise<BN>;
+    getRawClaimFee?(signer: string, swapData: T, feeRate?: string): Promise<bigint>;
     /**
      * Returns the fee in native token base units to refund the swap
      *
      * @param swapData Swap to refund
      * @param feeRate Optional fee rate (fetched on-demand if not provided)
      */
-    getRefundFee(swapData: T, feeRate?: string): Promise<BN>;
+    getRefundFee(swapData: T, feeRate?: string): Promise<bigint>;
     /**
      * Returns raw fee (not including any refunds we might get that would make the getRefundFee negative) for claiming the swap
      *
      * @param swapData Swap to claim
      * @param feeRate Optional fee rate (fetched on-demand if not provided)
      */
-    getRawRefundFee?(swapData: T, feeRate?: string): Promise<BN>;
+    getRawRefundFee?(swapData: T, feeRate?: string): Promise<bigint>;
     /**
      * Returns the fee rate for committing (initializing) a payIn swap
      *
@@ -404,7 +403,7 @@ export interface SwapContract<T extends SwapData = SwapData, TX = any, PreFetchD
      * @param swapData Swap to claim
      */
     getClaimFeeRate(signer: string, swapData: T): Promise<string>;
-    getExtraData(outputScript: Buffer, amount: BN, confirmations: number, nonce?: BN): Buffer;
+    getExtraData(outputScript: Buffer, amount: bigint, confirmations: number, nonce?: bigint): Buffer;
     /**
      * Compute the claim hash for a given transaction output, either nonced or just output locked
      *
@@ -413,7 +412,7 @@ export interface SwapContract<T extends SwapData = SwapData, TX = any, PreFetchD
      * @param confirmations Required number of confirmations for the swap to be claimable
      * @param nonce Nonce to be used as replay protection
      */
-    getHashForOnchain(outputScript: Buffer, amount: BN, confirmations: number, nonce?: BN): Buffer;
+    getHashForOnchain(outputScript: Buffer, amount: bigint, confirmations: number, nonce?: bigint): Buffer;
     /**
      * Compute the claim hash for a given transaction id
      *
@@ -439,7 +438,7 @@ export interface SwapContract<T extends SwapData = SwapData, TX = any, PreFetchD
      * @param amount Amount of the token to withdraw
      * @param txOptions Transaction options
      */
-    withdraw(signer: Signer, token: string, amount: BN, txOptions?: TransactionConfirmationOptions): Promise<string>;
+    withdraw(signer: Signer, token: string, amount: bigint, txOptions?: TransactionConfirmationOptions): Promise<string>;
     /**
      * Returns transactions required for signer to withdraw funds from the trading LP vault
      *
@@ -448,7 +447,7 @@ export interface SwapContract<T extends SwapData = SwapData, TX = any, PreFetchD
      * @param amount Amount of the token to withdraw
      * @param feeRate Optional fee rate to use for the transaction (fetched on-demand if not provided)
      */
-    txsWithdraw(signer: string, token: string, amount: BN, feeRate?: string): Promise<TX[]>;
+    txsWithdraw(signer: string, token: string, amount: bigint, feeRate?: string): Promise<TX[]>;
     /**
      * Deposits funds to the trading LP vault
      *
@@ -457,7 +456,7 @@ export interface SwapContract<T extends SwapData = SwapData, TX = any, PreFetchD
      * @param amount Amount of the token to deposit
      * @param txOptions Transaction options
      */
-    deposit(signer: Signer, token: string, amount: BN, txOptions?: TransactionConfirmationOptions): Promise<string>;
+    deposit(signer: Signer, token: string, amount: bigint, txOptions?: TransactionConfirmationOptions): Promise<string>;
     /**
      * Returns transactions required for signer to deposit funds to the trading LP vault
      *
@@ -466,7 +465,7 @@ export interface SwapContract<T extends SwapData = SwapData, TX = any, PreFetchD
      * @param amount Amount of the token to deposit
      * @param feeRate Optional fee rate to use for the transaction (fetched on-demand if not provided)
      */
-    txsDeposit(signer: string, token: string, amount: BN, feeRate?: string): Promise<TX[]>;
+    txsDeposit(signer: string, token: string, amount: bigint, feeRate?: string): Promise<TX[]>;
     /**
      * Transfers the specific token to a given recipient
      *
@@ -476,7 +475,7 @@ export interface SwapContract<T extends SwapData = SwapData, TX = any, PreFetchD
      * @param dstAddress Destination address of the transfer
      * @param txOptions Transaction options
      */
-    transfer(signer: Signer, token: string, amount: BN, dstAddress: string, txOptions?: TransactionConfirmationOptions): Promise<string>;
+    transfer(signer: Signer, token: string, amount: bigint, dstAddress: string, txOptions?: TransactionConfirmationOptions): Promise<string>;
     /**
      * Returns transactions for transferring a specific token to a given recipient
      *
@@ -486,7 +485,7 @@ export interface SwapContract<T extends SwapData = SwapData, TX = any, PreFetchD
      * @param dstAddress Destination address of the transfer
      * @param feeRate Optional fee rate to use for the transaction (fetched on-demand if not provided)
      */
-    txsTransfer(signer: string, token: string, amount: BN, dstAddress: string, feeRate?: string): Promise<TX[]>;
+    txsTransfer(signer: string, token: string, amount: bigint, dstAddress: string, feeRate?: string): Promise<TX[]>;
     /**
      * Serializes a given transaction to a string
      *
@@ -543,7 +542,7 @@ export interface SwapContract<T extends SwapData = SwapData, TX = any, PreFetchD
      */
     getClaimableDeposits?(signer: string): Promise<{
         count: number;
-        totalValue: BN;
+        totalValue: bigint;
     }>;
     /**
      * Claims the funds from claimable deposits
@@ -554,6 +553,6 @@ export interface SwapContract<T extends SwapData = SwapData, TX = any, PreFetchD
     claimDeposits?(signer: Signer): Promise<{
         txIds: string[];
         count: number;
-        totalValue: BN;
+        totalValue: bigint;
     }>;
 }
