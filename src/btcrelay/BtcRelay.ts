@@ -1,6 +1,5 @@
 import {BtcStoredHeader} from "./types/BtcStoredHeader";
 import {BtcBlock} from "./types/BtcBlock";
-import * as BN from "bn.js";
 import {AbstractSigner} from "../swaps/SwapContract";
 import {Buffer} from "buffer";
 
@@ -63,9 +62,9 @@ export interface BtcRelay<
     getMainFeeRate?(signer: string): Promise<string>;
     getForkFeeRate?(signer: string, forkId: number): Promise<string>;
 
-    estimateSynchronizeFee(requiredBlockheight: number, feeRate?: string): Promise<BN>;
+    estimateSynchronizeFee(requiredBlockheight: number, feeRate?: string): Promise<bigint>;
 
-    getFeePerBlock(feeRate?: any): Promise<BN>;
+    getFeePerBlock(feeRate?: any): Promise<bigint>;
 
     sweepForkData?(signer: Signer, lastSweepTimestamp?: number): Promise<number | null>;
 

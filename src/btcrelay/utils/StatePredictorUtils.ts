@@ -1,5 +1,5 @@
-import * as BN from "bn.js";
 import {Buffer} from "buffer";
+import {BigIntBufferUtils} from "../../utils/BigIntBufferUtils";
 
 export class StatePredictorUtils {
 
@@ -100,9 +100,9 @@ export class StatePredictorUtils {
 
     static getChainwork(nbits: number): Buffer {
         const target = StatePredictorUtils.nbitsToTarget(nbits);
-        const targetBN = new BN(target);
-        return targetBN.notn(256).div(targetBN.addn(1)).addn(1).toArrayLike(Buffer,"be", 32);
+        const targetBN = BigIntBufferUtils.fromBuffer(target);
+        return BigIntBufferUtils.toBuffer(
+            ((~targetBN & 0xffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffn) / (targetBN + 1n)) + 1n
+        );
     }
 }
-
-

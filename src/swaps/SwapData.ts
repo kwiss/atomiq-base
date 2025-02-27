@@ -1,5 +1,4 @@
 import {ChainSwapType} from "./ChainSwapType";
-import BN from "bn.js";
 import {StorageObject} from "../storage/StorageObject";
 
 export abstract class SwapData implements StorageObject {
@@ -26,13 +25,13 @@ export abstract class SwapData implements StorageObject {
 
     abstract getType(): ChainSwapType;
 
-    abstract getAmount(): BN;
+    abstract getAmount(): bigint;
 
     abstract getToken(): string;
 
     abstract isToken(token: string): boolean;
 
-    abstract getExpiry(): BN;
+    abstract getExpiry(): bigint;
 
     abstract isPayOut(): boolean;
 
@@ -42,19 +41,19 @@ export abstract class SwapData implements StorageObject {
 
     abstract getEscrowHash(): string;
 
-    abstract getSequence?(): BN;
+    abstract getSequence?(): bigint;
 
     abstract getExtraData(): string;
     abstract getConfirmationsHint(): number;
-    abstract getNonceHint(): BN;
+    abstract getNonceHint(): bigint;
     abstract getTxoHashHint(): string;
     abstract setExtraData(extraData: string): void;
 
-    abstract getSecurityDeposit(): BN;
+    abstract getSecurityDeposit(): bigint;
 
-    abstract getClaimerBounty(): BN;
+    abstract getClaimerBounty(): bigint;
 
-    abstract getTotalDeposit(): BN;
+    abstract getTotalDeposit(): bigint;
 
     abstract getDepositToken(): string;
     abstract isDepositToken(token: string): boolean;
