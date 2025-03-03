@@ -73,7 +73,7 @@ class StatePredictorUtils {
     static getChainwork(nbits) {
         const target = StatePredictorUtils.nbitsToTarget(nbits);
         const targetBN = BigIntBufferUtils_1.BigIntBufferUtils.fromBuffer(target);
-        return BigIntBufferUtils_1.BigIntBufferUtils.toBuffer(((~targetBN & 0xffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffn) / (targetBN + 1n)) + 1n);
+        return BigIntBufferUtils_1.BigIntBufferUtils.toBuffer(((~targetBN & 0xffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffn) / (targetBN + 1n)) + 1n, "be", 32);
     }
 }
 exports.StatePredictorUtils = StatePredictorUtils;

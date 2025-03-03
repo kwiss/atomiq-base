@@ -102,7 +102,7 @@ export class StatePredictorUtils {
         const target = StatePredictorUtils.nbitsToTarget(nbits);
         const targetBN = BigIntBufferUtils.fromBuffer(target);
         return BigIntBufferUtils.toBuffer(
-            ((~targetBN & 0xffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffn) / (targetBN + 1n)) + 1n
+            ((~targetBN & 0xffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffn) / (targetBN + 1n)) + 1n, "be", 32
         );
     }
 }
