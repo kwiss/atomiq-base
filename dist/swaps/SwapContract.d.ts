@@ -127,12 +127,13 @@ export interface SwapContract<T extends SwapData = SwapData, TX = any, PreFetchD
     /**
      * Returns the transactions for refunding a timed out swap
      *
+     * @param signer Signer of the refund transaction
      * @param swapData Swap to refund
      * @param check Whether to check if the swap contract still exists on-chain
      * @param initAta Whether to initialize a token account if it doesn't exist (applies to e.g. Solana, with token specific ATAs)
      * @param feeRate Fee rate to use for the transactions
      */
-    txsRefund(swapData: T, check?: boolean, initAta?: boolean, feeRate?: string): Promise<TX[]>;
+    txsRefund(signer: string, swapData: T, check?: boolean, initAta?: boolean, feeRate?: string): Promise<TX[]>;
     /**
      * Signs & sends transactions for refunding a swap with a valid refund signature from the claimer
      *
@@ -147,13 +148,14 @@ export interface SwapContract<T extends SwapData = SwapData, TX = any, PreFetchD
     /**
      * Returns the transactions for refunding a swap with a valid refund signature from the claimer
      *
+     * @param signer Signer of the refund transaction
      * @param swapData Swap to refund
      * @param signature Refund signature received from the claimer
      * @param check Whether to check if the swap contract still exists on-chain
      * @param initAta Whether to initialize a token account if it doesn't exist (applies to e.g. Solana, with token specific ATAs)
      * @param feeRate Fee rate to use for the transactions
      */
-    txsRefundWithAuthorization(swapData: T, signature: SignatureData, check?: boolean, initAta?: boolean, feeRate?: string): Promise<TX[]>;
+    txsRefundWithAuthorization(signer: string, swapData: T, signature: SignatureData, check?: boolean, initAta?: boolean, feeRate?: string): Promise<TX[]>;
     /**
      * Signs & sends transactions for initializing and instantly (upon init confirmation) claiming the HTLC, used for BTC-LN -> SC swaps
      *
