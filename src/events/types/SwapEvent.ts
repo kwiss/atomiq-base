@@ -1,6 +1,4 @@
 import {SwapData} from "../../swaps/SwapData";
-import * as BN from "bn.js";
-
 
 export class SwapEvent<T extends SwapData> {
 
@@ -8,12 +6,10 @@ export class SwapEvent<T extends SwapData> {
         blockTime: number,
         txId: string
     };
-    paymentHash: string;
-    sequence: BN;
+    escrowHash: string;
 
-    constructor(paymentHash: string, sequence: BN) {
-        this.paymentHash = paymentHash;
-        this.sequence = sequence;
+    constructor(escrowHash: string) {
+        this.escrowHash = escrowHash;
     }
 
 }

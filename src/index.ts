@@ -22,30 +22,9 @@ export * from "./errors/SignatureVerificationError";
 export * from "./errors/CannotInitializeATAError"
 export * from "./errors/SwapDataVerificationError";
 
-export * from "./ChainType";
+export * from "./chains/ChainType";
+export * from "./chains/ChainData";
 
-// export {
-//     BitcoinRpc,
-//     RelaySynchronizer,
-//     BtcBlock,
-//     BtcHeader,
-//     BtcStoredHeader,
-//     StatePredictorUtils,
-//     BtcRelay,
-//
-//     ClaimEvent,
-//     InitializeEvent,
-//     RefundEvent,
-//     SwapEvent,
-//     ChainEvents,
-//
-//     Lockable,
-//
-//     StorageObject,
-//
-//     ISwapNonce,
-//     SwapContract,
-//     SwapData,
-//     SwapType,
-//     TokenAddress,
-// }
+export * from "./utils/BigIntBufferUtils";
+
+export * from "./btc/BitcoinNetwork";

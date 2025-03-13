@@ -1,3 +1,5 @@
+import {Buffer} from "buffer";
+import {BigIntBufferUtils} from "../../utils/BigIntBufferUtils";
 
 export class StatePredictorUtils {
 
@@ -95,6 +97,12 @@ export class StatePredictorUtils {
         return result;
 
     }
+
+    static getChainwork(nbits: number): Buffer {
+        const target = StatePredictorUtils.nbitsToTarget(nbits);
+        const targetBN = BigIntBufferUtils.fromBuffer(target);
+        return BigIntBufferUtils.toBuffer(
+            ((~targetBN & 0xffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffn) / (targetBN + 1n)) + 1n, "be", 32
+        );
+    }
 }
-
-
