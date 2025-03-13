@@ -15,6 +15,7 @@ export type BaseTokenType<T extends string = string> = {
 
 export type ChainData<T extends ChainType> = {
     chainId: ChainType["ChainId"],
+    chainInterface: T["ChainInterface"],
     btcRelay: BtcRelay<any, T["TX"], any, T["Signer"]>,
     swapContract: T["Contract"],
     chainEvents: T["Events"],
@@ -24,7 +25,7 @@ export type ChainData<T extends ChainType> = {
 
 export type ChainInitializerFn<O, C extends ChainType> = (
     options: O,
-    bitcoinRelay: BitcoinRpc<any>,
+    bitcoinRpc: BitcoinRpc<any>,
     network: BitcoinNetwork,
     storageCtor: <T extends StorageObject>(name: string) => IStorageManager<T>
 ) => ChainData<C>;
