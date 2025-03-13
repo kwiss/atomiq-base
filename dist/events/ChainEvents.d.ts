@@ -1,4 +1,4 @@
-import { SwapEvent } from "./types/SwapEvent";
+import { SwapEvent } from "./types/swap/SwapEvent";
 import { SwapData } from "../swaps/SwapData";
 export type EventListener<T extends SwapData> = (obj: SwapEvent<T>[]) => Promise<boolean>;
 export interface ChainEvents<T extends SwapData> {
