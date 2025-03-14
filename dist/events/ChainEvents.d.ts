@@ -1,6 +1,6 @@
-import { SwapEvent } from "./types/swap/SwapEvent";
 import { SwapData } from "../swaps/SwapData";
-export type EventListener<T extends SwapData> = (obj: SwapEvent<T>[]) => Promise<boolean>;
+import { ChainEvent } from "./types/ChainEvent";
+export type EventListener<T extends SwapData> = (obj: ChainEvent<T>[]) => Promise<boolean>;
 export interface ChainEvents<T extends SwapData> {
     init(): Promise<void>;
     registerListener(cbk: EventListener<T>): void;
