@@ -15,7 +15,7 @@ var __exportStar = (this && this.__exportStar) || function(m, exports) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 __exportStar(require("./btcrelay/BtcRelay"), exports);
-__exportStar(require("./btcrelay/rpc/BitcoinRpc"), exports);
+__exportStar(require("./btc/rpc/BitcoinRpc"), exports);
 __exportStar(require("./btcrelay/synchronizer/RelaySynchronizer"), exports);
 __exportStar(require("./btcrelay/types/BtcBlock"), exports);
 __exportStar(require("./btcrelay/types/BtcHeader"), exports);
@@ -40,3 +40,7 @@ __exportStar(require("./chains/ChainType"), exports);
 __exportStar(require("./chains/ChainData"), exports);
 __exportStar(require("./utils/BigIntBufferUtils"), exports);
 __exportStar(require("./btc/BitcoinNetwork"), exports);
+__exportStar(require("./spv_swap/SpvVaultContract"), exports);
+__exportStar(require("./spv_swap/SpvVaultData"), exports);
+__exportStar(require("./spv_swap/SpvWithdrawalState"), exports);
+__exportStar(require("./spv_swap/SpvWithdrawalTransactionData"), exports);

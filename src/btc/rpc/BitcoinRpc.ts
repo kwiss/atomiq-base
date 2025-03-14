@@ -1,4 +1,4 @@
-import {BtcBlock} from "../types/BtcBlock";
+import {BtcBlock} from "../../btcrelay/types/BtcBlock";
 import {Buffer} from "buffer";
 
 
@@ -6,7 +6,7 @@ export type BtcVout = {
     value: number,
     n: number,
     scriptPubKey: {
-        asm: string,
+        asm?: string,
         hex: string
     }
 };
@@ -15,7 +15,7 @@ export type BtcVin = {
     txid: string,
     vout: number,
     scriptSig: {
-        asm: string,
+        asm?: string,
         hex: string
     },
     sequence: number,
@@ -29,6 +29,8 @@ export type BtcTx = {
     txid: string,
     hex: string,
     raw: string,
+    locktime: number,
+    version: number,
 
     outs: BtcVout[],
     ins: BtcVin[]
@@ -67,5 +69,8 @@ export interface BitcoinRpc<T extends BtcBlock> {
     getTipHeight(): Promise<number>;
 
     getSyncInfo(): Promise<BtcSyncInfo>;
+
+    parseTransaction(rawTx: string): Promise<BtcTx>;
+    isSpent(utxo: string): Promise<boolean>;
 
 }

@@ -1,5 +1,5 @@
 export * from "./btcrelay/BtcRelay";
-export * from "./btcrelay/rpc/BitcoinRpc";
+export * from "./btc/rpc/BitcoinRpc";
 export * from "./btcrelay/synchronizer/RelaySynchronizer";
 export * from "./btcrelay/types/BtcBlock";
 export * from "./btcrelay/types/BtcHeader";
@@ -28,3 +28,8 @@ export * from "./chains/ChainData";
 export * from "./utils/BigIntBufferUtils";
 
 export * from "./btc/BitcoinNetwork";
+
+export * from "./spv_swap/SpvVaultContract";
+export * from "./spv_swap/SpvVaultData";
+export * from "./spv_swap/SpvWithdrawalState";
+export * from "./spv_swap/SpvWithdrawalTransactionData";
