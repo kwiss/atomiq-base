@@ -33,3 +33,12 @@ export * from "./spv_swap/SpvVaultContract";
 export * from "./spv_swap/SpvVaultData";
 export * from "./spv_swap/SpvWithdrawalState";
 export * from "./spv_swap/SpvWithdrawalTransactionData";
+
+export * from "./events/types/ChainEvent";
+
+export * from "./events/types/spv_vault/SpvVaultEvent";
+export * from "./events/types/spv_vault/SpvVaultCloseEvent";
+export * from "./events/types/spv_vault/SpvVaultClaimEvent";
+export * from "./events/types/spv_vault/SpvVaultDepositEvent";
+export * from "./events/types/spv_vault/SpvVaultOpenEvent";
+export * from "./events/types/spv_vault/SpvVaultFrontEvent";
