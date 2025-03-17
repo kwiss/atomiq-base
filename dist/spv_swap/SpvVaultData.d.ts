@@ -1,5 +1,7 @@
 import { StorageObject } from "../storage/StorageObject";
 import { SpvWithdrawalTransactionData } from "./SpvWithdrawalTransactionData";
+import { SpvVaultClaimEvent } from "../events/types/spv_vault/SpvVaultClaimEvent";
+import { SpvVaultCloseEvent } from "../events/types/spv_vault/SpvVaultCloseEvent";
 export type SpvVaultTokenBalance = SpvVaultTokenData & {
     rawAmount: bigint;
     scaledAmount: bigint;
@@ -21,6 +23,8 @@ export declare abstract class SpvVaultData<T extends SpvWithdrawalTransactionDat
     abstract getUtxo(): string;
     abstract getConfirmations(): number;
     abstract getWithdrawalCount(): number;
+    abstract isOpened(): boolean;
+    abstract updateState(withdrawalTxOrEvent: T | SpvVaultClaimEvent | SpvVaultCloseEvent): void;
     calculateStateAfter(priorWithdrawalTxs: T[]): {
         withdrawalCount: number;
         balances: SpvVaultTokenBalance[];

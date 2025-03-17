@@ -3,6 +3,11 @@ Object.defineProperty(exports, "__esModule", { value: true });
 exports.SpvWithdrawalTransactionData = void 0;
 const buffer_1 = require("buffer");
 class SpvWithdrawalTransactionData {
+    static deserialize(data) {
+        if (SpvWithdrawalTransactionData.deserializers[data.type] != null) {
+            return new SpvWithdrawalTransactionData.deserializers[data.type](data);
+        }
+    }
     constructor(btcTx) {
         if (btcTx.ins.length < 2)
             throw new Error("Need at least 2 inputs");
@@ -51,6 +56,9 @@ class SpvWithdrawalTransactionData {
         this.executionHash = res.executionHash;
         this.executionExpiry = executionExpiry;
         this.btcTx = btcTx;
+    }
+    serialize() {
+        return this.btcTx;
     }
     getRecipient() {
         return this.recipient;
@@ -120,5 +128,12 @@ class SpvWithdrawalTransactionData {
     getCreatedVaultUtxo() {
         return this.getTxId() + ":0";
     }
+    getNewVaultScript() {
+        return buffer_1.Buffer.from(this.btcTx.outs[0].scriptPubKey.hex, "hex");
+    }
+    getNewVaultBtcAmount() {
+        return this.btcTx.outs[0].value;
+    }
 }
 exports.SpvWithdrawalTransactionData = SpvWithdrawalTransactionData;
+SpvWithdrawalTransactionData.deserializers = {};

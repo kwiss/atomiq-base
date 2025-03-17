@@ -1,13 +1,23 @@
-import {StorageObject} from "../storage/StorageObject";
 import {BtcTx} from "../btc/rpc/BitcoinRpc";
 import {Buffer} from "buffer";
+import {StorageObject} from "../storage/StorageObject";
 
 export type ExecutionData = {
     executionHash: string,
     executionExpiry: number
 };
 
-export abstract class SpvWithdrawalTransactionData {
+export abstract class SpvWithdrawalTransactionData implements StorageObject {
+
+    static deserializers: {
+        [type: string]: new (serialized: any) => any,
+    } = {};
+
+    static deserialize<T extends SpvWithdrawalTransactionData>(data: any): T {
+        if (SpvWithdrawalTransactionData.deserializers[data.type] != null) {
+            return new SpvWithdrawalTransactionData.deserializers[data.type](data) as unknown as T;
+        }
+    }
 
     protected abstract fromOpReturnData(data: Buffer): {recipient: string, rawAmounts: bigint[], executionHash: string};
 
@@ -70,6 +80,10 @@ export abstract class SpvWithdrawalTransactionData {
         this.executionExpiry = executionExpiry;
 
         this.btcTx = btcTx;
+    }
+
+    serialize(): any {
+        return this.btcTx;
     }
 
     getRecipient(): string {
@@ -139,6 +153,14 @@ export abstract class SpvWithdrawalTransactionData {
 
     getCreatedVaultUtxo(): string {
         return this.getTxId()+":0";
+    }
+
+    getNewVaultScript(): Buffer {
+        return Buffer.from(this.btcTx.outs[0].scriptPubKey.hex, "hex");
+    }
+
+    getNewVaultBtcAmount(): number {
+        return this.btcTx.outs[0].value;
     }
 
 }
