@@ -92,12 +92,13 @@ export interface SpvVaultContract<TX = any, Signer extends AbstractSigner = Abst
     /**
      * Creates vault data for a new vault
      *
+     * @param owner Vault owner
      * @param vaultId Vault ID
      * @param utxo Utxo on which to assign the vault initially
      * @param confirmations Required number of bitcoin confirmations to be able to withdraw funds from the vault
      * @param tokenData Data about the tokens in the vault
      */
-    createVaultData(vaultId: bigint, utxo: string, confirmations: number, tokenData: SpvVaultTokenData[]): Promise<Data>;
+    createVaultData(owner: string, vaultId: bigint, utxo: string, confirmations: number, tokenData: SpvVaultTokenData[]): Promise<Data>;
     /**
      * Returns current vault data
      *
