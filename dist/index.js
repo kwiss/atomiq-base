@@ -40,6 +40,7 @@ __exportStar(require("./chains/ChainType"), exports);
 __exportStar(require("./chains/ChainData"), exports);
 __exportStar(require("./utils/BigIntBufferUtils"), exports);
 __exportStar(require("./btc/BitcoinNetwork"), exports);
+__exportStar(require("./chains/ChainInterface"), exports);
 __exportStar(require("./spv_swap/SpvVaultContract"), exports);
 __exportStar(require("./spv_swap/SpvVaultData"), exports);
 __exportStar(require("./spv_swap/SpvWithdrawalState"), exports);

@@ -24,6 +24,7 @@ export * from "./chains/ChainType";
 export * from "./chains/ChainData";
 export * from "./utils/BigIntBufferUtils";
 export * from "./btc/BitcoinNetwork";
+export * from "./chains/ChainInterface";
 export * from "./spv_swap/SpvVaultContract";
 export * from "./spv_swap/SpvVaultData";
 export * from "./spv_swap/SpvWithdrawalState";
