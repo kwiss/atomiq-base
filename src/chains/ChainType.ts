@@ -5,6 +5,7 @@ import {BtcRelay} from "../btcrelay/BtcRelay";
 import {AbstractSigner, ChainInterface} from "./ChainInterface";
 import {SpvVaultData} from "../spv_swap/SpvVaultData";
 import {SpvVaultContract} from "../spv_swap/SpvVaultContract";
+import {SpvWithdrawalTransactionData} from "../spv_swap/SpvWithdrawalTransactionData";
 
 export type ChainType<
     ChainId extends string = string,
@@ -18,7 +19,8 @@ export type ChainType<
     E extends ChainEvents<T> = ChainEvents<T>,
     B extends BtcRelay<any, TXType, any, Signer> = BtcRelay<any, TXType, any, Signer>,
     SpvData extends SpvVaultData = SpvVaultData,
-    SpvContract extends SpvVaultContract = SpvVaultContract,
+    SpvWithdrawalData extends SpvWithdrawalTransactionData = SpvWithdrawalTransactionData,
+    SpvContract extends SpvVaultContract<TXType, Signer, ChainId, SpvData, SpvWithdrawalData> = SpvVaultContract<TXType, Signer, ChainId, SpvData, SpvWithdrawalData>
 > = {
     ChainId: ChainId,
     PreFetchData: PreFetchData,
@@ -31,5 +33,6 @@ export type ChainType<
     Events: E,
     BtcRelay: B,
     SpvVaultData: SpvData,
-    SpvVaultContract: SpvContract
+    SpvVaultContract: SpvContract,
+    SpvVaultWithdrawalData: SpvWithdrawalData
 }

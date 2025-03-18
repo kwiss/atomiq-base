@@ -140,19 +140,11 @@ export interface SpvVaultContract<
     getWithdrawalState(btcTxId: string): Promise<SpvWithdrawalState>;
 
     /**
-     * Parses withdrawal data from a specific bitcoin transaction as identified by txId - needs to be already
-     *  broadcasted in the mempool - returns null if bitcoin transaction is not found
-     *
-     * @param btcTxId
-     */
-    getWithdrawalData(btcTxId: string): Promise<WithdrawalTX | null>;
-
-    /**
      * Parses withdrawal data from the parsed bitcoin transaction
      *
      * @param btcTx
      */
-    getWithdrawalDataFromTx(btcTx: BtcTx): Promise<WithdrawalTX>;
+    getWithdrawalData(btcTx: BtcTx): Promise<WithdrawalTX>;
 
     /**
      * Checks if given withdrawal tx is valid and correctly parses on-chain, throws error when there is any issue with

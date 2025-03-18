@@ -1,5 +1,4 @@
 import {ChainType} from "./ChainType";
-import {BtcRelay} from "../btcrelay/BtcRelay";
 import {BitcoinRpc} from "../btc/rpc/BitcoinRpc";
 import {BitcoinNetwork} from "../btc/BitcoinNetwork";
 import {IStorageManager} from "../storage/IStorageManager";
@@ -21,7 +20,8 @@ export type ChainData<T extends ChainType> = {
     swapContract: T["Contract"],
     swapDataConstructor: new (data: any) => T["Data"],
     spvVaultContract: T["SpvVaultContract"],
-    spvVaultDataConstructor: new (data: any) => T["SpvVaultData"]
+    spvVaultDataConstructor: new (data: any) => T["SpvVaultData"],
+    spvVaultWithdrawalDataConstructor: new (data: any) => T["SpvVaultWithdrawalData"]
 };
 
 export type ChainInitializerFn<O, C extends ChainType> = (
