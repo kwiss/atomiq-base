@@ -70,25 +70,29 @@ export interface SpvVaultContract<TX = any, Signer extends AbstractSigner = Abst
      *
      * @param signer Signer to use for the transaction
      * @param vault Vault to claim from
-     * @param tx Bitcoin transaction data for the withdrawal authorization
-     * @param storedHeader Optional already retrieved stored header to use for proving
+     * @param txs
      * @param synchronizer Optiona synchronizer to be used if BTC relay contract is not synced up to the required blockheight
      * @param initAta Whether to initialize a token account if it doesn't exist (applies to e.g. Solana, with token specific ATAs)
      * @param txOptions Transaction options
      */
-    claim(signer: Signer, vault: Data, tx: WithdrawalTX, storedHeader?: BtcStoredHeader<any>, synchronizer?: RelaySynchronizer<any, TX, any>, initAta?: boolean, txOptions?: TransactionConfirmationOptions): Promise<string>;
+    claim(signer: Signer, vault: Data, txs: {
+        tx: WithdrawalTX;
+        storedHeader?: BtcStoredHeader<any>;
+    }[], synchronizer?: RelaySynchronizer<any, TX, any>, initAta?: boolean, txOptions?: TransactionConfirmationOptions): Promise<string>;
     /**
      * Returns the unsigned transactions for claiming the funds from a specific vault
      *
      * @param signer Signer to use for the transaction
      * @param vault Vault to claim from
-     * @param tx Bitcoin transaction data for the withdrawal authorization
-     * @param storedHeader Optional already retrieved stored header to use for proving
+     * @param txs
      * @param synchronizer Optiona synchronizer to be used if BTC relay contract is not synced up to the required blockheight
      * @param initAta Whether to initialize a token account if it doesn't exist (applies to e.g. Solana, with token specific ATAs)
      * @param feeRate Fee rate to use for the transaction
      */
-    txsClaim(signer: string, vault: Data, tx: WithdrawalTX, storedHeader?: BtcStoredHeader<any>, synchronizer?: RelaySynchronizer<any, TX, any>, initAta?: boolean, feeRate?: string): Promise<TX[]>;
+    txsClaim(signer: string, vault: Data, txs: {
+        tx: WithdrawalTX;
+        storedHeader?: BtcStoredHeader<any>;
+    }[], synchronizer?: RelaySynchronizer<any, TX, any>, initAta?: boolean, feeRate?: string): Promise<TX[]>;
     /**
      * Creates vault data for a new vault
      *
