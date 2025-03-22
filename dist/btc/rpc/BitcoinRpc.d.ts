@@ -59,5 +59,5 @@ export interface BitcoinRpc<T extends BtcBlock> {
     getTipHeight(): Promise<number>;
     getSyncInfo(): Promise<BtcSyncInfo>;
     parseTransaction(rawTx: string): Promise<BtcTx>;
-    isSpent(utxo: string): Promise<boolean>;
+    isSpent(utxo: string, confirmed?: boolean): Promise<boolean>;
 }

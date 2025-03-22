@@ -71,6 +71,6 @@ export interface BitcoinRpc<T extends BtcBlock> {
     getSyncInfo(): Promise<BtcSyncInfo>;
 
     parseTransaction(rawTx: string): Promise<BtcTx>;
-    isSpent(utxo: string): Promise<boolean>;
+    isSpent(utxo: string, confirmed?: boolean): Promise<boolean>;
 
 }
