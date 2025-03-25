@@ -147,4 +147,36 @@ export interface SpvVaultContract<TX = any, Signer extends AbstractSigner = Abst
         rawAmounts: bigint[];
         executionHash: string;
     };
+    /**
+     * Returns the fee in native token base units to claim the swap
+     *
+     * @param signer Signer claiming the swap
+     * @param withdrawalData Withdrawal to claim
+     * @param feeRate Optional fee rate (fetched on-demand if not provided)
+     */
+    getClaimFee(signer: string, withdrawalData: WithdrawalTX, feeRate?: string): Promise<bigint>;
+    /**
+     * Returns raw fee (not including any refunds we might get that would make the getClaimFee negative) for claiming the swap
+     *
+     * @param signer Signer claiming the swap
+     * @param withdrawalData Withdrawal to claim
+     * @param feeRate Optional fee rate (fetched on-demand if not provided)
+     */
+    getRawClaimFee?(signer: string, withdrawalData: WithdrawalTX, feeRate?: string): Promise<bigint>;
+    /**
+     * Returns the fee in native token base units to claim the swap
+     *
+     * @param signer Signer claiming the swap
+     * @param withdrawalData Withdrawal to claim
+     * @param feeRate Optional fee rate (fetched on-demand if not provided)
+     */
+    getFrontFee(signer: string, withdrawalData: WithdrawalTX, feeRate?: string): Promise<bigint>;
+    /**
+     * Returns raw fee (not including any refunds we might get that would make the getClaimFee negative) for claiming the swap
+     *
+     * @param signer Signer claiming the swap
+     * @param withdrawalData Withdrawal to claim
+     * @param feeRate Optional fee rate (fetched on-demand if not provided)
+     */
+    getRawFrontFee?(signer: string, withdrawalData: WithdrawalTX, feeRate?: string): Promise<bigint>;
 }
