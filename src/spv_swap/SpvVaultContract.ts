@@ -136,6 +136,12 @@ export interface SpvVaultContract<
     getVaultData(owner: string, vaultId: bigint): Promise<Data>;
 
     /**
+     * Returns all currently opened vaults
+     * NOTE: This will take a long time, since the implementation will have to go through all the prior events
+     */
+    getAllVaults(owner?: string): Promise<Data>;
+
+    /**
      * Returns current state of the withdrawal as specified by the bitcoin transaction ID
      *
      * @param btcTxId
