@@ -40,6 +40,8 @@ export abstract class SpvWithdrawalTransactionData implements StorageObject {
         const nSequence0 = BigInt(btcTx.ins[0].sequence);
         const nSequence1 = BigInt(btcTx.ins[1].sequence);
 
+        if((nSequence0 & 0x80000000n) != 0x80000000n) throw new Error("nSequence0 high bit not set!");
+        if((nSequence1 & 0x80000000n) != 0x80000000n) throw new Error("nSequence0 high bit not set!");
         const callerFeeRate: bigint = nSequence0 & 0xFFFFFn;
         const executionFeeRate: bigint = nSequence1 & 0xFFFFFn;
         const frontingFeeRate: bigint = ((nSequence0 >> 10n) & 0b1111_1111_1100_0000_0000n) | ((nSequence1 >> 20n) & 0b11_1111_1111n);

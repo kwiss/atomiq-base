@@ -15,6 +15,10 @@ class SpvWithdrawalTransactionData {
             throw new Error("Need at least 2 outputs");
         const nSequence0 = BigInt(btcTx.ins[0].sequence);
         const nSequence1 = BigInt(btcTx.ins[1].sequence);
+        if ((nSequence0 & 0x80000000n) != 0x80000000n)
+            throw new Error("nSequence0 high bit not set!");
+        if ((nSequence1 & 0x80000000n) != 0x80000000n)
+            throw new Error("nSequence0 high bit not set!");
         const callerFeeRate = nSequence0 & 0xfffffn;
         const executionFeeRate = nSequence1 & 0xfffffn;
         const frontingFeeRate = ((nSequence0 >> 10n) & 1047552n) | ((nSequence1 >> 20n) & 1023n);
