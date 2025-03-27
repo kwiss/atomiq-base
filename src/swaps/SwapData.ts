@@ -14,12 +14,12 @@ export abstract class SwapData implements StorageObject {
     }
 
     abstract getOfferer(): string;
-    abstract setOfferer(newOfferer: string);
-    abstract isOfferer(address: string);
+    abstract setOfferer(newOfferer: string): void;
+    abstract isOfferer(address: string): boolean;
 
     abstract getClaimer(): string;
-    abstract setClaimer(newClaimer: string);
-    abstract isClaimer(address: string);
+    abstract setClaimer(newClaimer: string): void;
+    abstract isClaimer(address: string): boolean;
 
     abstract serialize(): any;
 
