@@ -37,6 +37,7 @@ export abstract class SpvVaultData<T extends SpvWithdrawalTransactionData = SpvW
     abstract getUtxo(): string;
     abstract getConfirmations(): number;
     abstract getWithdrawalCount(): number;
+    abstract getDepositCount(): number;
     abstract isOpened(): boolean;
 
     abstract updateState(withdrawalTxOrEvent: T | SpvVaultClaimEvent | SpvVaultCloseEvent | SpvVaultOpenEvent | SpvVaultDepositEvent): void;
