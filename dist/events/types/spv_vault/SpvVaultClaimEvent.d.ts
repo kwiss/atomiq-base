@@ -7,5 +7,6 @@ export declare class SpvVaultClaimEvent extends SpvVaultEvent<SpvVaultEventType.
     amounts: bigint[];
     caller: string;
     frontingAddress: string;
-    constructor(owner: string, vaultId: bigint, btcTxId: string, recipient: string, executionHash: string, amounts: bigint[], caller: string, frontingAddress: string);
+    withdrawCount: number;
+    constructor(owner: string, vaultId: bigint, btcTxId: string, recipient: string, executionHash: string, amounts: bigint[], caller: string, frontingAddress: string, withdrawCount: number);
 }

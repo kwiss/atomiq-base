@@ -10,12 +10,13 @@ export class SpvVaultClaimEvent extends SpvVaultEvent<SpvVaultEventType.CLAIM> {
     executionHash: string;
     amounts: bigint[];
     caller: string;
-    frontingAddress: string
+    frontingAddress: string;
+    withdrawCount: number;
 
     constructor(
         owner: string, vaultId: bigint,
         btcTxId: string, recipient: string, executionHash: string, amounts: bigint[],
-        caller: string, frontingAddress: string
+        caller: string, frontingAddress: string, withdrawCount: number
     ) {
         super(owner, vaultId);
         this.btcTxId = btcTxId;
@@ -24,6 +25,7 @@ export class SpvVaultClaimEvent extends SpvVaultEvent<SpvVaultEventType.CLAIM> {
         this.amounts = amounts;
         this.caller = caller;
         this.frontingAddress = frontingAddress;
+        this.withdrawCount = withdrawCount;
     }
 
 }
