@@ -73,4 +73,6 @@ export interface BitcoinRpc<T extends BtcBlock> {
     parseTransaction(rawTx: string): Promise<BtcTx>;
     isSpent(utxo: string, confirmed?: boolean): Promise<boolean>;
 
+    getEffectiveFeeRate(btcTx: BtcTx): Promise<{vsize: number, fee: number, feeRate: number}>;
+
 }
