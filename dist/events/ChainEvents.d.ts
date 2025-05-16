@@ -5,4 +5,5 @@ export interface ChainEvents<T extends SwapData> {
     init(): Promise<void>;
     registerListener(cbk: EventListener<T>): void;
     unregisterListener(cbk: EventListener<T>): boolean;
+    stop(): Promise<void>;
 }
