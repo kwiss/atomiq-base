@@ -1,15 +1,15 @@
 export * from "./btcrelay/BtcRelay";
-export * from "./btcrelay/rpc/BitcoinRpc";
+export * from "./btc/rpc/BitcoinRpc";
 export * from "./btcrelay/synchronizer/RelaySynchronizer";
 export * from "./btcrelay/types/BtcBlock";
 export * from "./btcrelay/types/BtcHeader";
 export * from "./btcrelay/types/BtcStoredHeader";
 export * from "./btcrelay/utils/StatePredictorUtils";
 export * from "./events/ChainEvents";
-export * from "./events/types/ClaimEvent";
-export * from "./events/types/InitializeEvent";
-export * from "./events/types/RefundEvent";
-export * from "./events/types/SwapEvent";
+export * from "./events/types/swap/ClaimEvent";
+export * from "./events/types/swap/InitializeEvent";
+export * from "./events/types/swap/RefundEvent";
+export * from "./events/types/swap/SwapEvent";
 export * from "./lockable/Lockable";
 export * from "./storage/IStorageManager";
 export * from "./storage/StorageObject";
@@ -28,3 +28,19 @@ export * from "./chains/ChainData";
 export * from "./utils/BigIntBufferUtils";
 
 export * from "./btc/BitcoinNetwork";
+
+export * from "./chains/ChainInterface";
+
+export * from "./spv_swap/SpvVaultContract";
+export * from "./spv_swap/SpvVaultData";
+export * from "./spv_swap/SpvWithdrawalState";
+export * from "./spv_swap/SpvWithdrawalTransactionData";
+
+export * from "./events/types/ChainEvent";
+
+export * from "./events/types/spv_vault/SpvVaultEvent";
+export * from "./events/types/spv_vault/SpvVaultCloseEvent";
+export * from "./events/types/spv_vault/SpvVaultClaimEvent";
+export * from "./events/types/spv_vault/SpvVaultDepositEvent";
+export * from "./events/types/spv_vault/SpvVaultOpenEvent";
+export * from "./events/types/spv_vault/SpvVaultFrontEvent";

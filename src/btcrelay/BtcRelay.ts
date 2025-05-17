@@ -1,7 +1,7 @@
 import {BtcStoredHeader} from "./types/BtcStoredHeader";
 import {BtcBlock} from "./types/BtcBlock";
-import {AbstractSigner} from "../swaps/SwapContract";
 import {Buffer} from "buffer";
+import {AbstractSigner} from "../chains/ChainInterface";
 
 export interface BtcRelay<
     V extends BtcStoredHeader<any>,

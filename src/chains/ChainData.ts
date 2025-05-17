@@ -1,6 +1,5 @@
 import {ChainType} from "./ChainType";
-import {BtcRelay} from "../btcrelay/BtcRelay";
-import {BitcoinRpc} from "../btcrelay/rpc/BitcoinRpc";
+import {BitcoinRpc} from "../btc/rpc/BitcoinRpc";
 import {BitcoinNetwork} from "../btc/BitcoinNetwork";
 import {IStorageManager} from "../storage/IStorageManager";
 import {StorageObject} from "../storage/StorageObject";
@@ -15,16 +14,19 @@ export type BaseTokenType<T extends string = string> = {
 
 export type ChainData<T extends ChainType> = {
     chainId: ChainType["ChainId"],
-    btcRelay: BtcRelay<any, T["TX"], any, T["Signer"]>,
-    swapContract: T["Contract"],
+    chainInterface: T["ChainInterface"],
+    btcRelay: T["BtcRelay"],
     chainEvents: T["Events"],
+    swapContract: T["Contract"],
     swapDataConstructor: new (data: any) => T["Data"],
-    storagePrefix?: string
+    spvVaultContract: T["SpvVaultContract"],
+    spvVaultDataConstructor: new (data: any) => T["SpvVaultData"],
+    spvVaultWithdrawalDataConstructor: new (data: any) => T["SpvVaultWithdrawalData"]
 };
 
 export type ChainInitializerFn<O, C extends ChainType> = (
     options: O,
-    bitcoinRelay: BitcoinRpc<any>,
+    bitcoinRpc: BitcoinRpc<any>,
     network: BitcoinNetwork,
     storageCtor: <T extends StorageObject>(name: string) => IStorageManager<T>
 ) => ChainData<C>;

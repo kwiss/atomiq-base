@@ -5,4 +5,5 @@ var BitcoinNetwork;
 (function (BitcoinNetwork) {
     BitcoinNetwork[BitcoinNetwork["MAINNET"] = 0] = "MAINNET";
     BitcoinNetwork[BitcoinNetwork["TESTNET"] = 1] = "TESTNET";
+    BitcoinNetwork[BitcoinNetwork["TESTNET4"] = 2] = "TESTNET4";
 })(BitcoinNetwork = exports.BitcoinNetwork || (exports.BitcoinNetwork = {}));
