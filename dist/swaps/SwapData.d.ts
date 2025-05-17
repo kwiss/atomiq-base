@@ -6,11 +6,11 @@ export declare abstract class SwapData implements StorageObject {
     };
     static deserialize<T extends SwapData>(data: any): T;
     abstract getOfferer(): string;
-    abstract setOfferer(newOfferer: string): any;
-    abstract isOfferer(address: string): any;
+    abstract setOfferer(newOfferer: string): void;
+    abstract isOfferer(address: string): boolean;
     abstract getClaimer(): string;
-    abstract setClaimer(newClaimer: string): any;
-    abstract isClaimer(address: string): any;
+    abstract setClaimer(newClaimer: string): void;
+    abstract isClaimer(address: string): boolean;
     abstract serialize(): any;
     abstract getType(): ChainSwapType;
     abstract getAmount(): bigint;
